@@ -227,8 +227,9 @@ function love.update(dt)
         A,
         B
     )
-    theta = (theta + 0.0105) % (2*math.pi)
-    mega = (mega + 0.0105) % (2*math.pi)
+    local change = 100*((2*math.pi)/(9.5*60))*dt
+    theta = (theta + change) % (2*math.pi)
+    mega = (mega + change) % (2*math.pi)
 
     sh:send("dscale", max(1,var_div))
     sh:send("doffset", avg_div)

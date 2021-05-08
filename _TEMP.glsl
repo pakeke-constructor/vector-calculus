@@ -28,8 +28,8 @@ uniform float h;
 uniform float CAP;
 
 
-float F(float x, float y){  return (x)*sin(y/2+2.406997) ;  } // to be subbed in
-float G(float x, float y){  return (y)*cos(x/2+2.406997) ;  }
+float F(float x, float y){  return (x)*sin(y/2+1.494554) ;  } // to be subbed in
+float G(float x, float y){  return (y)*cos(x/2+1.494554) ;  }
 
 
 

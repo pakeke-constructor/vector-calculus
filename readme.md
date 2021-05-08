@@ -13,6 +13,11 @@ vector field visualizer, using love2d
 
 ### Example of functions:
 ```lua
+    P(x,y) = ( y*cos(x/2 + 2.8), x*sin(y/2 + 2.8) )
+```
+![field_1](https://ibb.co/85mMq8V)
+
+```lua
    P(x,y) = ( (x*y + x*x), (x*y - y*y) )
 ```
 
