@@ -15,7 +15,7 @@ vector field visualizer, using love2d
 ```lua
     P(x,y) = ( y*cos(x/2 + 2.8), x*sin(y/2 + 2.8) )
 ```
-![field_1](https://ibb.co/85mMq8V)
+![field_1](https://i.ibb.co/zRmspfw/screenshot-1.png)
 
 ```lua
    P(x,y) = ( (x*y + x*x), (x*y - y*y) )
