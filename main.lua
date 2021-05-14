@@ -197,17 +197,20 @@ local theta = 0
 local mega  = 0
 
 
+local nodraw = false
+
 
 function love.draw()
     love.graphics.setShader(sh)
     love.graphics.setColor(1,1,1,1)
     love.graphics.rectangle("fill",-200,-200,CAP*2,CAP*2)
 
+    if nodraw then return end
     love.graphics.setColor(0,0,0,1)
     for x=1,CAP,CAP/50 do
         for y=1,CAP,CAP/50 do
             local px, py = toPlotCoords(x, y)
-            love.graphics.line(x,y, x + f(px,py), y + g(px,py))
+            love.graphics.line(x,y, x + 5*f(px,py), y + 5*g(px,py))
         end
     end
     love.graphics.setShader(  )
@@ -219,6 +222,12 @@ function love.draw()
     love.graphics.print("(x,y) --> ( F(x,y), G(x,y) )",10,42)
 end
 
+function love.keypressed(k)
+    if k=="d" then
+        nodraw = not nodraw  
+    end
+end
+
 
 function love.update(dt)
     local  A =  ("(x)*sin(y/2 + %f)"):format(theta)
@@ -227,7 +236,7 @@ function love.update(dt)
         A,
         B
     )
-    local change = 100*((2*math.pi)/(9.5*60))*dt
+    local change = 50*((2*math.pi)/(9.5*60))*dt
     theta = (theta + change) % (2*math.pi)
     mega = (mega + change) % (2*math.pi)
 
@@ -245,5 +254,6 @@ function love.update(dt)
     sh:send("w", w)
     sh:send("h", h)
 
+    sh:send("nodraw", nodraw)
     sh:send("CAP",CAP)
 end

@@ -18,6 +18,8 @@ uniform float coffset;
 uniform float mscale;
 uniform float moffset;
 
+uniform bool nodraw; // whether we should `max` the RGB components
+
 
 
 uniform float sx;
@@ -53,7 +55,7 @@ float magnitude(float x, float y){
     vec2 mag;
     mag.x = F(x,y);
     mag.y = G(x,y);
-    return (length(mag)-moffset)/mscale;
+    return ((length(mag))-moffset)/mscale;
 }
 
 
@@ -87,10 +89,16 @@ vec4 effect(vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords)
     vec4 mod;
 
     mod.x = 0.1+(divergence(vc.x, vc.y)); // r   For some reason this is -inf :/
-    mod.y = 0.1+(curl(vc.x,vc.y)); // b               NVM fixed
-    mod.z = 0.1+(magnitude(vc.x, vc.y)); // g
+    mod.z = 0.1+(curl(vc.x,vc.y)); // b               NVM fixed
+    mod.y = 0.1+(magnitude(vc.x, vc.y)); // g
 
     mod.w = 1;
+
+    if (!nodraw){ // cap the colours so its easier to see vectors
+        mod.x = max(0.15,mod.x);
+        mod.y = max(0.15,mod.y);
+        mod.z = max(0.15,mod.z);
+    }
 
     vec4 tc;
     tc = Texel(tex, texture_coords);
