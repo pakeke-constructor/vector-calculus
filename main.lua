@@ -5,6 +5,7 @@ local G   =  ' y*cos(x/2) '
 
 local f,g
 
+
 --[[
 Let f,g be scalar functions such that:
 
@@ -72,9 +73,10 @@ local h = 8
 local SAMPLES = 80; -- there will be SAMPLES ^ 2 samples made.
             -- DONT MAKE THIS NUMBER LARGE!!!
 
-local CAP = 750
+local CAP_Y = 750
+local CAP_X = 1000
 
-love.window.setMode(CAP,CAP)
+love.window.setMode(CAP_X,CAP_Y) -- (CAP,CAP)
 
 
 local CLAMP_VAL = 100
@@ -184,9 +186,9 @@ changeFunction(F,G)
 
 
 local function toPlotCoords(X,Y)
-    X=CAP-X
-    Y=CAP-Y
-    return (w*X)/CAP + x, (h*Y)/CAP + y
+    X=CAP_X-X
+    Y=CAP_Y-Y
+    return (w*X)/CAP_X + x, (h*Y)/CAP_Y + y
 end
 
 
@@ -203,12 +205,12 @@ local nodraw = false
 function love.draw()
     love.graphics.setShader(sh)
     love.graphics.setColor(1,1,1,1)
-    love.graphics.rectangle("fill",-200,-200,CAP*2,CAP*2)
+    love.graphics.rectangle("fill",-200,-200,CAP_X*2,CAP_Y*2)
 
     if nodraw then return end
     love.graphics.setColor(0,0,0,1)
-    for x=1,CAP,CAP/50 do
-        for y=1,CAP,CAP/50 do
+    for x=1,CAP_X,CAP_X/50 do
+        for y=1,CAP_Y,CAP_Y/50 do
             local px, py = toPlotCoords(x, y)
             love.graphics.line(x,y, x + 5*f(px,py), y + 5*g(px,py))
         end
@@ -255,5 +257,6 @@ function love.update(dt)
     sh:send("h", h)
 
     sh:send("nodraw", nodraw)
-    sh:send("CAP",CAP)
+    sh:send("CAP_X",CAP_X)
+    sh:send("CAP_Y",CAP_Y)
 end

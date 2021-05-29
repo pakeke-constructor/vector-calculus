@@ -27,11 +27,12 @@ uniform float sy;
 uniform float w;
 uniform float h;
 
-uniform float CAP;
+uniform float CAP_X;
+uniform float CAP_Y;
 
 
-float F(float x, float y){  return (x)*sin(y/2+0.058220) ;  } // to be subbed in
-float G(float x, float y){  return (y)*cos(x/2+0.058220) ;  }
+float F(float x, float y){  return (x)*sin(y/2+5.578005) ;  } // to be subbed in
+float G(float x, float y){  return (y)*cos(x/2+5.578005) ;  }
 
 
 
@@ -70,10 +71,10 @@ float divergence(float x, float y){
 
 
 vec2 plotCords(float X, float Y, float sx, float sy, float w, float h){
-    Y = CAP - Y;//invert, because in love2d, y=0 is at top
+    Y = CAP_Y - Y;//invert, because in love2d, y=0 is at top
     vec2 ret = vec2(0.0,0.0);
-    ret[0] = w * (X / CAP) + sx;
-    ret[1] = h * (Y / CAP) + sy;
+    ret[0] = w * (X / CAP_X) + sx;
+    ret[1] = h * (Y / CAP_Y) + sy;
 
     return ret; 
 }
